@@ -12,5 +12,16 @@
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       psopt
  * Domain Path:       /languages
+ *
+ * Psite Optimizer is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 3 of the License.
+ *
+ * Psite Optimizer is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Psite Optimizer. If not, see https://www.gnu.org/licenses/gpl-3.0.html.
  */
- 
