@@ -35,3 +35,21 @@
 
 // Exit if accessed directly
 defined('ABSPATH') || exit;
+
+/**
+ * Activate the plugin.
+ */
+function psopt_activate()
+{
+}
+
+register_activation_hook(__FILE__, 'psopt_activate');
+
+/**
+ * Deactivation hook.
+ */
+function psopt_deactivate()
+{
+}
+
+register_deactivation_hook(__FILE__, 'psopt_deactivate');
