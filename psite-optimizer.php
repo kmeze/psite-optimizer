@@ -37,6 +37,50 @@
 defined('ABSPATH') || exit;
 
 /**
+ * Options page
+ */
+function psopt_admin_menu()
+{
+    // Ceeate plgin options page in Settings Admin Menu
+    add_options_page(__('Optimization Settings', 'psopt'), __('Optimization', 'psopt'), 'manage_options', 'psopt_options_page', 'psopt_options_page_html');
+}
+
+add_action('admin_menu', 'psopt_admin_menu');
+
+function psopt_admin_init()
+{
+    register_setting('psopt_options', 'psopt_options');
+    add_settings_section('psopt_options_main', __('Posts and Page Cleanup', 'psopt'), 'psopt_options_main_html', 'psopt_options_page');
+}
+
+add_action('admin_init', 'psopt_admin_init');
+
+/**
+ * Options page callbacks
+ */
+function psopt_options_page_html()
+{
+    ?>
+    <div class="wrap">
+        <h1><?php _e('Optimization Settings', 'psopt') ?></h1>
+        <form method="post" action="options.php">
+            <?php settings_fields('psopt_options'); ?>
+            <?php do_settings_sections('psopt_options_page'); ?>
+            <p class="submit">
+                <input type="submit" name="submit" id="submit" class="button button-primary"
+                       value="<?php _e('Save Changes') ?>">
+            </p>
+        </form>
+    </div>
+    <?php
+}
+
+function psopt_options_main_html()
+{
+    esc_html_e('Uncheck options below to remove link elements from all posts and pages <head>.', 'psopt');
+}
+
+/**
  * HTML cleanup
  */
 // DNS prefetch link
