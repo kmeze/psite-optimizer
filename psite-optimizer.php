@@ -1,5 +1,12 @@
 <?php
+
 /**
+ * @package           Psite Optimizer
+ * @author            Krešimir Meze
+ * @copyright         2021 Krešimir Meze
+ * @license           GPL-3.0
+ *
+ * @wordpress-plugin
  * Plugin Name:       Psite Optimizer
  * Plugin URI:        https://github.com/kmeze/psite-optimizer
  * Description:       Turns off unnecessary WordPress features and speeds up page loading.
