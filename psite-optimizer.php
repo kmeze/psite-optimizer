@@ -51,6 +51,9 @@ function psopt_admin_init()
 {
     register_setting('psopt_options', 'psopt_options');
     add_settings_section('psopt_options_main', __('Posts and Page Cleanup', 'psopt'), 'psopt_options_main_html', 'psopt_options_page');
+
+    // Options fields
+    add_settings_field('dns_prefetch_links', __('DNS prefetch links', 'psopt'), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main');
 }
 
 add_action('admin_init', 'psopt_admin_init');
@@ -58,6 +61,19 @@ add_action('admin_init', 'psopt_admin_init');
 /**
  * Options page callbacks
  */
+function psopt_options_field_dns_prefetch_links_html()
+{
+    $options = get_option('psopt_options');
+    ?>
+    <label for="dns_prefetch_links">
+        <input id="dns_prefetch_links"
+               name="psopt_options[dns_prefetch_links]"
+               type="checkbox" <?php echo isset($options['dns_prefetch_links']) ? ' checked="checked" ' : ''; ?>>
+        Disable DNS prefetch links
+    </label>
+    <?php
+}
+
 function psopt_options_page_html()
 {
     ?>
@@ -83,8 +99,12 @@ function psopt_options_main_html()
 /**
  * HTML cleanup
  */
+// Get settings
+$options = get_option('psopt_options');
+
 // DNS prefetch link
-remove_action('wp_head', 'wp_resource_hints', 2);
+if (isset($options['dns_prefetch_links']))
+    remove_action('wp_head', 'wp_resource_hints', 2);
 
 // Generator meta elemet
 remove_action('wp_head', 'wp_generator');
