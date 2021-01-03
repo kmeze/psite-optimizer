@@ -56,6 +56,7 @@ function psopt_admin_init() {
 	// Options fields
 	add_settings_field( 'psopt_dns_prefetch_links', __( 'DNS prefetch links', 'psopt' ), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_generator_meta', __( 'Generator meta element', 'psopt' ), 'psopt_options_field_generator_meta_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_wlw_link', __( 'Windows Live Writer', 'psopt' ), 'psopt_options_field_wlw_link_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -83,6 +84,18 @@ function psopt_options_field_generator_meta_html() {
                name="psopt_options[generator_meta]"
                type="checkbox" <?php echo isset( $options['generator_meta'] ) ? ' checked="checked" ' : ''; ?>>
 		<?php esc_html_e( 'Disable generator meta element', 'psopt' ); ?>
+    </label>
+	<?php
+}
+
+function psopt_options_field_wlw_link_html() {
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="psopt_wlw_link">
+        <input id="psopt_wlw_link"
+               name="psopt_options[wlw_link]"
+               type="checkbox" <?php echo isset( $options['wlw_link'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable Windows Live Writer manifest link', 'psopt' ); ?>
     </label>
 	<?php
 }
@@ -124,7 +137,9 @@ if ( isset( $options['generator_meta'] ) ) {
 }
 
 // Windows Live Writer manifest link
-remove_action( 'wp_head', 'wlwmanifest_link' );
+if ( isset( $options['wlw_link'] ) ) {
+	remove_action( 'wp_head', 'wlwmanifest_link' );
+}
 
 // Weblog client link
 remove_action( 'wp_head', 'rsd_link' );
