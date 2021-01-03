@@ -62,6 +62,7 @@ function psopt_admin_init() {
 	add_settings_field( 'psopt_post_relational_links', __( 'Post relational links', 'psopt' ), 'psopt_options_field_post_relational_links_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_emoji_spp', __( 'Emoji', 'psopt' ), 'psopt_options_field_emoji_spp_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_rest_api_links', __( 'REST API discovery', 'psopt' ), 'psopt_options_field_rest_api_links_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_oembed_spp', __( 'oEmbed discovery', 'psopt' ), 'psopt_options_field_oembed_spp_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -165,6 +166,18 @@ function psopt_options_field_rest_api_links_html() {
 	<?php
 }
 
+function psopt_options_field_oembed_spp_html() {
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="psopt_oembed_spp">
+        <input id="psopt_oembed_spp"
+               name="psopt_options[oembed_spp]"
+               type="checkbox" <?php echo isset( $options['oembed_spp'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable oEmbed discovery', 'psopt' ); ?>
+    </label>
+	<?php
+}
+
 function psopt_options_page_html() {
 	?>
     <div class="wrap">
@@ -237,10 +250,12 @@ if ( isset( $options['rest_api_links'] ) ) {
 }
 
 // oEmbed discovery support
-remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
-remove_action( 'wp_head', 'wp_oembed_add_host_js' );
-remove_action( 'rest_api_init', 'wp_oembed_register_route' );
-remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result' );
+if ( isset( $options['oembed_spp'] ) ) {
+	remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+	remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+	remove_action( 'rest_api_init', 'wp_oembed_register_route' );
+	remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result' );
+}
 
 // RSS Feed links
 remove_action( 'wp_head', 'feed_links', 2 );
