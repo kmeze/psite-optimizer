@@ -117,7 +117,7 @@ function psopt_options_page_html() {
 }
 
 function psopt_options_main_html() {
-	esc_html_e( 'Uncheck options below to remove link elements from all posts and pages <head>.', 'psopt' );
+	esc_html_e( 'Check options below to remove elements from all posts and pages <head> element.', 'psopt' );
 }
 
 /**
