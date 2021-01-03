@@ -143,7 +143,7 @@ function psopt_options_page_html() {
 }
 
 function psopt_options_main_html() {
-	esc_html_e( 'Check options below to remove elements from all posts and pages <head> element.', 'psopt' );
+	esc_html_e( 'Check options below to remove elements from all posts and pages HEAD.', 'psopt' );
 }
 
 /**
