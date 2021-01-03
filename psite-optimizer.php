@@ -54,7 +54,7 @@ function psopt_admin_init() {
 	add_settings_section( 'psopt_options_main', __( 'Posts and Page Cleanup', 'psopt' ), 'psopt_options_main_html', 'psopt_options_page' );
 
 	// Options fields
-	add_settings_field( 'dns_prefetch_links', __( 'DNS prefetch links', 'psopt' ), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_dns_prefetch_links', __( 'DNS prefetch links', 'psopt' ), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
