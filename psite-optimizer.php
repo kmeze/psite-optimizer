@@ -34,128 +34,122 @@
  */
 
 // Exit if accessed directly
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Options page
  */
-function psopt_admin_menu()
-{
-    // Ceeate plgin options page in Settings Admin Menu
-    add_options_page(__('Optimization Settings', 'psopt'), __('Optimization', 'psopt'), 'manage_options', 'psopt_options_page', 'psopt_options_page_html');
+function psopt_admin_menu() {
+	// Ceeate plgin options page in Settings Admin Menu
+	add_options_page( __( 'Optimization Settings', 'psopt' ), __( 'Optimization', 'psopt' ), 'manage_options', 'psopt_options_page', 'psopt_options_page_html' );
 }
 
-add_action('admin_menu', 'psopt_admin_menu');
+add_action( 'admin_menu', 'psopt_admin_menu' );
 
-function psopt_admin_init()
-{
-    register_setting('psopt_options', 'psopt_options');
-    add_settings_section('psopt_options_main', __('Posts and Page Cleanup', 'psopt'), 'psopt_options_main_html', 'psopt_options_page');
+function psopt_admin_init() {
+	register_setting( 'psopt_options', 'psopt_options' );
+	add_settings_section( 'psopt_options_main', __( 'Posts and Page Cleanup', 'psopt' ), 'psopt_options_main_html', 'psopt_options_page' );
 
-    // Options fields
-    add_settings_field('dns_prefetch_links', __('DNS prefetch links', 'psopt'), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main');
+	// Options fields
+	add_settings_field( 'dns_prefetch_links', __( 'DNS prefetch links', 'psopt' ), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
-add_action('admin_init', 'psopt_admin_init');
+add_action( 'admin_init', 'psopt_admin_init' );
 
 /**
  * Options page callbacks
  */
-function psopt_options_field_dns_prefetch_links_html()
-{
-    $options = get_option('psopt_options');
-    ?>
+function psopt_options_field_dns_prefetch_links_html() {
+	$options = get_option( 'psopt_options' );
+	?>
     <label for="dns_prefetch_links">
         <input id="dns_prefetch_links"
                name="psopt_options[dns_prefetch_links]"
-               type="checkbox" <?php echo isset($options['dns_prefetch_links']) ? ' checked="checked" ' : ''; ?>>
+               type="checkbox" <?php echo isset( $options['dns_prefetch_links'] ) ? ' checked="checked" ' : ''; ?>>
         Disable DNS prefetch links
     </label>
-    <?php
+	<?php
 }
 
-function psopt_options_page_html()
-{
-    ?>
+function psopt_options_page_html() {
+	?>
     <div class="wrap">
-        <h1><?php _e('Optimization Settings', 'psopt') ?></h1>
+        <h1><?php _e( 'Optimization Settings', 'psopt' ) ?></h1>
         <form method="post" action="options.php">
-            <?php settings_fields('psopt_options'); ?>
-            <?php do_settings_sections('psopt_options_page'); ?>
+			<?php settings_fields( 'psopt_options' ); ?>
+			<?php do_settings_sections( 'psopt_options_page' ); ?>
             <p class="submit">
                 <input type="submit" name="submit" id="submit" class="button button-primary"
-                       value="<?php _e('Save Changes') ?>">
+                       value="<?php _e( 'Save Changes' ) ?>">
             </p>
         </form>
     </div>
-    <?php
+	<?php
 }
 
-function psopt_options_main_html()
-{
-    esc_html_e('Uncheck options below to remove link elements from all posts and pages <head>.', 'psopt');
+function psopt_options_main_html() {
+	esc_html_e( 'Uncheck options below to remove link elements from all posts and pages <head>.', 'psopt' );
 }
 
 /**
  * HTML cleanup
  */
 // Get settings
-$options = get_option('psopt_options');
+$options = get_option( 'psopt_options' );
 
 // DNS prefetch link
-if (isset($options['dns_prefetch_links']))
-    remove_action('wp_head', 'wp_resource_hints', 2);
+if ( isset( $options['dns_prefetch_links'] ) ) {
+	remove_action( 'wp_head', 'wp_resource_hints', 2 );
+}
 
 // Generator meta elemet
-remove_action('wp_head', 'wp_generator');
+remove_action( 'wp_head', 'wp_generator' );
 
 // Windows Live Writer manifest link
-remove_action('wp_head', 'wlwmanifest_link');
+remove_action( 'wp_head', 'wlwmanifest_link' );
 
 // Weblog client link
-remove_action('wp_head', 'rsd_link');
+remove_action( 'wp_head', 'rsd_link' );
 
 // WordPress Page/Post shortlinks
-remove_action('wp_head', 'wp_shortlink_wp_head');
+remove_action( 'wp_head', 'wp_shortlink_wp_head' );
 
 // Post relational links
-remove_action('wp_head', 'start_post_rel_link');
-remove_action('wp_head', 'index_rel_link');
-remove_action('wp_head', 'adjacent_posts_rel_link');
+remove_action( 'wp_head', 'start_post_rel_link' );
+remove_action( 'wp_head', 'index_rel_link' );
+remove_action( 'wp_head', 'adjacent_posts_rel_link' );
 
 // Emoji support
-remove_action('wp_head', 'print_emoji_detection_script', 7);
-remove_action('wp_print_styles', 'print_emoji_styles');
-remove_action('admin_print_scripts', 'print_emoji_detection_script');
-remove_action('admin_print_styles', 'print_emoji_styles');
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+remove_action( 'wp_print_styles', 'print_emoji_styles' );
+remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+remove_action( 'admin_print_styles', 'print_emoji_styles' );
 
 // REST API link
-remove_action('wp_head', 'rest_output_link_wp_head', 10);
+remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
 
 // oEmbed discovery supprot
-remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
-remove_action('wp_head', 'wp_oembed_add_host_js');
-remove_action('rest_api_init', 'wp_oembed_register_route');
-remove_filter('oembed_dataparse', 'wp_filter_oembed_result', 10);
+remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
+remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+remove_action( 'rest_api_init', 'wp_oembed_register_route' );
+remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
 
 // RSS Feed links
-remove_action('wp_head', 'feed_links', 2);
-remove_action('wp_head', 'feed_links_extra', 3);
+remove_action( 'wp_head', 'feed_links', 2 );
+remove_action( 'wp_head', 'feed_links_extra', 3 );
 
 /**
  * Activate the plugin.
  */
-function psopt_activate()
-{
+function psopt_activate() {
 }
 
-register_activation_hook(__FILE__, 'psopt_activate');
+register_activation_hook( __FILE__, 'psopt_activate' );
 
 /**
  * Deactivation hook.
  */
-function psopt_deactivate()
-{
+function psopt_deactivate() {
 }
 
-register_deactivation_hook(__FILE__, 'psopt_deactivate');
+register_deactivation_hook( __FILE__, 'psopt_deactivate' );
