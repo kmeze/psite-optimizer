@@ -53,7 +53,7 @@ function psopt_admin_init() {
 	// Register main section
 	add_settings_section( 'psopt_options_main', __( 'Posts and Page Cleanup', 'psopt' ), 'psopt_options_main_html', 'psopt_options_page' );
 
-	// Options fields
+	// Settings fields
 	add_settings_field( 'psopt_dns_prefetch_links', __( 'DNS prefetch', 'psopt' ), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_generator_meta', __( 'Generator meta', 'psopt' ), 'psopt_options_field_generator_meta_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_wlw_link', __( 'Windows Live Writer', 'psopt' ), 'psopt_options_field_wlw_link_html', 'psopt_options_page', 'psopt_options_main' );
