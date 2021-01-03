@@ -58,6 +58,7 @@ function psopt_admin_init() {
 	add_settings_field( 'psopt_generator_meta', __( 'Generator meta', 'psopt' ), 'psopt_options_field_generator_meta_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_wlw_link', __( 'Windows Live Writer', 'psopt' ), 'psopt_options_field_wlw_link_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_wblog_client_link', __( 'Weblog client', 'psopt' ), 'psopt_options_field_wblog_client_link_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_post_shortlinks', __( 'Page/Post shortlinks', 'psopt' ), 'psopt_options_field_post_shortlinks_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -113,6 +114,18 @@ function psopt_options_field_wblog_client_link_html() {
 	<?php
 }
 
+function psopt_options_field_post_shortlinks_html() {
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="psopt_post_shortlinks">
+        <input id="psopt_post_shortlinks"
+               name="psopt_options[post_shortlinks]"
+               type="checkbox" <?php echo isset( $options['post_shortlinks'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable Page/Post shortlinks', 'psopt' ); ?>
+    </label>
+	<?php
+}
+
 function psopt_options_page_html() {
 	?>
     <div class="wrap">
@@ -160,7 +173,9 @@ if ( isset( $options['wblog_client_link'] ) ) {
 }
 
 // WordPress Page/Post shortlinks
-remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+if ( isset( $options['post_shortlinks'] ) ) {
+	remove_action( 'wp_head', 'wp_shortlink_wp_head' );
+}
 
 // Post relational links
 remove_action( 'wp_head', 'start_post_rel_link' );
