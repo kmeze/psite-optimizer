@@ -66,8 +66,8 @@ add_action( 'admin_init', 'psopt_admin_init' );
 function psopt_options_field_dns_prefetch_links_html() {
 	$options = get_option( 'psopt_options' );
 	?>
-    <label for="dns_prefetch_links">
-        <input id="dns_prefetch_links"
+    <label for="psopt_dns_prefetch_links">
+        <input id="psopt_dns_prefetch_links"
                name="psopt_options[dns_prefetch_links]"
                type="checkbox" <?php echo isset( $options['dns_prefetch_links'] ) ? ' checked="checked" ' : ''; ?>>
 		<?php esc_html_e( 'Disable DNS prefetch links', 'psopt' ); ?>
