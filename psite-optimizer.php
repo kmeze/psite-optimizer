@@ -57,6 +57,7 @@ function psopt_admin_init() {
 	add_settings_field( 'psopt_dns_prefetch_links', __( 'DNS prefetch', 'psopt' ), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_generator_meta', __( 'Generator meta', 'psopt' ), 'psopt_options_field_generator_meta_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_wlw_link', __( 'Windows Live Writer', 'psopt' ), 'psopt_options_field_wlw_link_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_wblog_client_link', __( 'Weblog client', 'psopt' ), 'psopt_options_field_wblog_client_link_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -96,6 +97,18 @@ function psopt_options_field_wlw_link_html() {
                name="psopt_options[wlw_link]"
                type="checkbox" <?php echo isset( $options['wlw_link'] ) ? ' checked="checked" ' : ''; ?>>
 		<?php esc_html_e( 'Disable Windows Live Writer manifest link', 'psopt' ); ?>
+    </label>
+	<?php
+}
+
+function psopt_options_field_wblog_client_link_html() {
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="psopt_wblog_client_link">
+        <input id="psopt_wblog_client_link"
+               name="psopt_options[wblog_client_link]"
+               type="checkbox" <?php echo isset( $options['wblog_client_link'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable Weblog client link', 'psopt' ); ?>
     </label>
 	<?php
 }
@@ -142,7 +155,9 @@ if ( isset( $options['wlw_link'] ) ) {
 }
 
 // Weblog client link
-remove_action( 'wp_head', 'rsd_link' );
+if ( isset( $options['wblog_client_link'] ) ) {
+	remove_action( 'wp_head', 'rsd_link' );
+}
 
 // WordPress Page/Post shortlinks
 remove_action( 'wp_head', 'wp_shortlink_wp_head' );
