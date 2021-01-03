@@ -47,7 +47,7 @@ function psopt_admin_menu() {
 add_action( 'admin_menu', 'psopt_admin_menu' );
 
 function psopt_admin_init() {
-    // Register settings
+	// Register settings
 	register_setting( 'psopt_options', 'psopt_options' );
 
 	// Register main section
@@ -69,7 +69,7 @@ function psopt_options_field_dns_prefetch_links_html() {
         <input id="dns_prefetch_links"
                name="psopt_options[dns_prefetch_links]"
                type="checkbox" <?php echo isset( $options['dns_prefetch_links'] ) ? ' checked="checked" ' : ''; ?>>
-        Disable DNS prefetch links
+		<?php esc_html_e( __( 'Disable DNS prefetch links', 'psopt' ) ); ?>
     </label>
 	<?php
 }
