@@ -63,6 +63,7 @@ function psopt_admin_init() {
 	add_settings_field( 'psopt_emoji_spp', __( 'Emoji', 'psopt' ), 'psopt_options_field_emoji_spp_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_rest_api_links', __( 'REST API discovery', 'psopt' ), 'psopt_options_field_rest_api_links_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_oembed_spp', __( 'oEmbed discovery', 'psopt' ), 'psopt_options_field_oembed_spp_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_rss_links', __( 'RSS Feed links', 'psopt' ), 'psopt_options_field_rss_links_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -178,6 +179,18 @@ function psopt_options_field_oembed_spp_html() {
 	<?php
 }
 
+function psopt_options_field_rss_links_html() {
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="psopt_rss_links">
+        <input id="psopt_rss_links"
+               name="psopt_options[rss_links]"
+               type="checkbox" <?php echo isset( $options['rss_links'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable RSS Feed links', 'psopt' ); ?>
+    </label>
+	<?php
+}
+
 function psopt_options_page_html() {
 	?>
     <div class="wrap">
@@ -258,8 +271,10 @@ if ( isset( $options['oembed_spp'] ) ) {
 }
 
 // RSS Feed links
-remove_action( 'wp_head', 'feed_links', 2 );
-remove_action( 'wp_head', 'feed_links_extra', 3 );
+if ( isset( $options['rss_links'] ) ) {
+	remove_action( 'wp_head', 'feed_links', 2 );
+	remove_action( 'wp_head', 'feed_links_extra', 3 );
+}
 
 /**
  * Activate the plugin.
