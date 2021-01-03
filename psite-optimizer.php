@@ -60,6 +60,7 @@ function psopt_admin_init() {
 	add_settings_field( 'psopt_wblog_client_link', __( 'Weblog client', 'psopt' ), 'psopt_options_field_wblog_client_link_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_post_shortlink', __( 'Post shortlink', 'psopt' ), 'psopt_options_field_post_shortlinks_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_post_relational_links', __( 'Post relational links', 'psopt' ), 'psopt_options_field_post_relational_links_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_emoji_spp', __( 'Emoji', 'psopt' ), 'psopt_options_field_emoji_spp_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -139,6 +140,18 @@ function psopt_options_field_post_relational_links_html() {
 	<?php
 }
 
+function psopt_options_field_emoji_spp_html() {
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="psopt_emoji_spp">
+        <input id="psopt_emoji_spp"
+               name="psopt_options[emoji_spp]"
+               type="checkbox" <?php echo isset( $options['emoji_spp'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable Emoji', 'psopt' ); ?>
+    </label>
+	<?php
+}
+
 function psopt_options_page_html() {
 	?>
     <div class="wrap">
@@ -198,10 +211,12 @@ if ( isset( $options['post_relational_links'] ) ) {
 }
 
 // Emoji support
-remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-remove_action( 'wp_print_styles', 'print_emoji_styles' );
-remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
-remove_action( 'admin_print_styles', 'print_emoji_styles' );
+if ( isset( $options['emoji_spp'] ) ) {
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+	remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+	remove_action( 'admin_print_styles', 'print_emoji_styles' );
+}
 
 // REST API link
 remove_action( 'wp_head', 'rest_output_link_wp_head' );
