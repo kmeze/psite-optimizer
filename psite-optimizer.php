@@ -59,6 +59,7 @@ function psopt_admin_init() {
 	add_settings_field( 'psopt_wlw_link', __( 'Windows Live Writer', 'psopt' ), 'psopt_options_field_wlw_link_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_wblog_client_link', __( 'Weblog client', 'psopt' ), 'psopt_options_field_wblog_client_link_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_post_shortlink', __( 'Page/Post shortlink', 'psopt' ), 'psopt_options_field_post_shortlinks_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_post_relational_links', __( 'Post relational links', 'psopt' ), 'psopt_options_field_post_relational_links_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -126,6 +127,18 @@ function psopt_options_field_post_shortlinks_html() {
 	<?php
 }
 
+function psopt_options_field_post_relational_links_html() {
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="psopt_post_relational_links">
+        <input id="psopt_post_relational_links"
+               name="psopt_options[post_relational_links]"
+               type="checkbox" <?php echo isset( $options['post_relational_links'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable post relational links', 'psopt' ); ?>
+    </label>
+	<?php
+}
+
 function psopt_options_page_html() {
 	?>
     <div class="wrap">
@@ -178,9 +191,11 @@ if ( isset( $options['post_shortlink'] ) ) {
 }
 
 // Post relational links
-remove_action( 'wp_head', 'start_post_rel_link' );
-remove_action( 'wp_head', 'index_rel_link' );
-remove_action( 'wp_head', 'adjacent_posts_rel_link' );
+if ( isset( $options['post_relational_links'] ) ) {
+	remove_action( 'wp_head', 'start_post_rel_link' );
+	remove_action( 'wp_head', 'index_rel_link' );
+	remove_action( 'wp_head', 'adjacent_posts_rel_link' );
+}
 
 // Emoji support
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
