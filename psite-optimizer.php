@@ -58,7 +58,7 @@ function psopt_admin_init() {
 	add_settings_field( 'psopt_generator_meta', __( 'Generator meta', 'psopt' ), 'psopt_options_field_generator_meta_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_wlw_link', __( 'Windows Live Writer', 'psopt' ), 'psopt_options_field_wlw_link_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_wblog_client_link', __( 'Weblog client', 'psopt' ), 'psopt_options_field_wblog_client_link_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_post_shortlinks', __( 'Page/Post shortlinks', 'psopt' ), 'psopt_options_field_post_shortlinks_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_post_shortlink', __( 'Page/Post shortlink', 'psopt' ), 'psopt_options_field_post_shortlinks_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -117,11 +117,11 @@ function psopt_options_field_wblog_client_link_html() {
 function psopt_options_field_post_shortlinks_html() {
 	$options = get_option( 'psopt_options' );
 	?>
-    <label for="psopt_post_shortlinks">
-        <input id="psopt_post_shortlinks"
-               name="psopt_options[post_shortlinks]"
-               type="checkbox" <?php echo isset( $options['post_shortlinks'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable Page/Post shortlinks', 'psopt' ); ?>
+    <label for="psopt_post_shortlink">
+        <input id="psopt_post_shortlink"
+               name="psopt_options[post_shortlink]"
+               type="checkbox" <?php echo isset( $options['post_shortlink'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable Page/Post shortlink', 'psopt' ); ?>
     </label>
 	<?php
 }
@@ -173,7 +173,7 @@ if ( isset( $options['wblog_client_link'] ) ) {
 }
 
 // WordPress Page/Post shortlinks
-if ( isset( $options['post_shortlinks'] ) ) {
+if ( isset( $options['post_shortlink'] ) ) {
 	remove_action( 'wp_head', 'wp_shortlink_wp_head' );
 }
 
