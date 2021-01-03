@@ -61,6 +61,7 @@ function psopt_admin_init() {
 	add_settings_field( 'psopt_post_shortlink', __( 'Post shortlink', 'psopt' ), 'psopt_options_field_post_shortlinks_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_post_relational_links', __( 'Post relational links', 'psopt' ), 'psopt_options_field_post_relational_links_html', 'psopt_options_page', 'psopt_options_main' );
 	add_settings_field( 'psopt_emoji_spp', __( 'Emoji', 'psopt' ), 'psopt_options_field_emoji_spp_html', 'psopt_options_page', 'psopt_options_main' );
+	add_settings_field( 'psopt_rest_api_links', __( 'REST API discovery', 'psopt' ), 'psopt_options_field_rest_api_links_html', 'psopt_options_page', 'psopt_options_main' );
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
@@ -152,6 +153,18 @@ function psopt_options_field_emoji_spp_html() {
 	<?php
 }
 
+function psopt_options_field_rest_api_links_html() {
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="rest_api_links">
+        <input id="rest_api_links"
+               name="psopt_options[rest_api_links]"
+               type="checkbox" <?php echo isset( $options['rest_api_links'] ) ? ' checked="checked" ' : ''; ?>>
+		<?php esc_html_e( 'Disable REST API discovery links', 'psopt' ); ?>
+    </label>
+	<?php
+}
+
 function psopt_options_page_html() {
 	?>
     <div class="wrap">
@@ -219,7 +232,9 @@ if ( isset( $options['emoji_spp'] ) ) {
 }
 
 // REST API link
-remove_action( 'wp_head', 'rest_output_link_wp_head' );
+if ( isset( $options['rest_api_links'] ) ) {
+	remove_action( 'wp_head', 'rest_output_link_wp_head' );
+}
 
 // oEmbed discovery support
 remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
