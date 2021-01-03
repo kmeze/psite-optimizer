@@ -40,7 +40,7 @@ defined( 'ABSPATH' ) || exit;
  * Options page
  */
 function psopt_admin_menu() {
-	// Ceeate plgin options page in Settings Admin Menu
+	// Create plugin options page in Settings Admin Menu
 	add_options_page( __( 'Optimization Settings', 'psopt' ), __( 'Optimization', 'psopt' ), 'manage_options', 'psopt_options_page', 'psopt_options_page_html' );
 }
 
@@ -102,7 +102,7 @@ if ( isset( $options['dns_prefetch_links'] ) ) {
 	remove_action( 'wp_head', 'wp_resource_hints', 2 );
 }
 
-// Generator meta elemet
+// Generator meta element
 remove_action( 'wp_head', 'wp_generator' );
 
 // Windows Live Writer manifest link
@@ -128,7 +128,7 @@ remove_action( 'admin_print_styles', 'print_emoji_styles' );
 // REST API link
 remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
 
-// oEmbed discovery supprot
+// oEmbed discovery support
 remove_action( 'wp_head', 'wp_oembed_add_discovery_links', 10 );
 remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 remove_action( 'rest_api_init', 'wp_oembed_register_route' );
