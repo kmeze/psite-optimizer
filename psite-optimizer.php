@@ -69,7 +69,7 @@ function psopt_options_field_dns_prefetch_links_html() {
         <input id="dns_prefetch_links"
                name="psopt_options[dns_prefetch_links]"
                type="checkbox" <?php echo isset( $options['dns_prefetch_links'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( __( 'Disable DNS prefetch links', 'psopt' ) ); ?>
+		<?php esc_html_e( 'Disable DNS prefetch links', 'psopt' ); ?>
     </label>
 	<?php
 }
