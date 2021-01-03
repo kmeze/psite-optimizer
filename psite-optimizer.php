@@ -47,7 +47,10 @@ function psopt_admin_menu() {
 add_action( 'admin_menu', 'psopt_admin_menu' );
 
 function psopt_admin_init() {
+    // Register settings
 	register_setting( 'psopt_options', 'psopt_options' );
+
+	// Register main section
 	add_settings_section( 'psopt_options_main', __( 'Posts and Page Cleanup', 'psopt' ), 'psopt_options_main_html', 'psopt_options_page' );
 
 	// Options fields
