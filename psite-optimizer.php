@@ -37,7 +37,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Options page
+ * Plugin settings
  */
 function psopt_admin_menu() {
 	// Create plugin options page in Settings Admin Menu
@@ -47,13 +47,13 @@ function psopt_admin_menu() {
 add_action( 'admin_menu', 'psopt_admin_menu' );
 
 function psopt_admin_init() {
-	// Register settings
+	// Register plugin settings
 	register_setting( 'psopt_options', 'psopt_options' );
 
 	// Register main section
 	add_settings_section( 'psopt_options_main', __( 'Posts and Page Cleanup', 'psopt' ), 'psopt_options_main_html', 'psopt_options_page' );
 
-	// Main section fields
+	// Add main section fields
 	$fields = array(
 		array(
 			'label' => __( 'DNS prefetch', 'psopt' ),
@@ -115,7 +115,7 @@ function psopt_admin_init() {
 add_action( 'admin_init', 'psopt_admin_init' );
 
 /**
- * Options page callbacks
+ * Plugin settings page callbacks
  */
 function psopt_options_page_html() {
 	?>
@@ -218,16 +218,13 @@ if ( isset( $options['rss_links'] ) ) {
 }
 
 /**
- * Activation hook.
+ * Activation & deactivation hooks
  */
 function psopt_activate() {
 }
 
 register_activation_hook( __FILE__, 'psopt_activate' );
 
-/**
- * Deactivation hook.
- */
 function psopt_deactivate() {
 }
 
