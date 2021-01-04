@@ -114,9 +114,6 @@ function psopt_admin_init() {
 
 add_action( 'admin_init', 'psopt_admin_init' );
 
-/**
- * Plugin settings page callbacks
- */
 function psopt_options_page_html() {
 	?>
     <div class="wrap">
