@@ -202,7 +202,7 @@ if ( isset( $options['rss_links'] ) ) {
 }
 
 /**
- * Activate the plugin.
+ * Activation hook.
  */
 function psopt_activate() {
 }
