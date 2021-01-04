@@ -57,68 +57,58 @@ function psopt_admin_init() {
 	$fields = array(
 		array(
 			'label'     => __( 'DNS prefetch', 'psopt' ),
-			'id'        => 'dns_prefetch_links',
 			'label_for' => 'dns_prefetch_links',
 			'title'     => __( 'Disable DNS prefetch links', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'Generator meta', 'psopt' ),
-			'id'        => 'generator_meta',
 			'label_for' => 'generator_meta',
 			'title'     => __( 'Disable generator meta element', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'Windows Live Writer', 'psopt' ),
-			'id'        => 'wlw_link',
 			'label_for' => 'wlw_link',
 			'title'     => __( 'Disable Windows Live Writer manifest link', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'Weblog client', 'psopt' ),
-			'id'        => 'wblog_client_link',
 			'label_for' => 'wblog_client_link',
 			'title'     => __( 'Disable Weblog client link', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'Post shortlink', 'psopt' ),
-			'id'        => 'post_shortlink',
 			'label_for' => 'post_shortlink',
 			'title'     => __( 'Disable post shortlink', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'Post relational links', 'psopt' ),
-			'id'        => 'post_relational_links',
 			'label_for' => 'post_relational_links',
 			'title'     => __( 'Disable post relational links', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'Emoji', 'psopt' ),
-			'id'        => 'emoji_spp',
 			'label_for' => 'emoji_spp',
 			'title'     => __( 'Disable Emoji', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'REST API discovery', 'psopt' ),
-			'id'        => 'rest_api_links',
 			'label_for' => 'rest_api_links',
 			'title'     => __( 'Disable REST API discovery links', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'oEmbed discovery', 'psopt' ),
-			'id'        => 'oembed_spp',
 			'label_for' => 'oembed_spp',
 			'title'     => __( 'Disable oEmbed discovery', 'psopt' ),
 		),
 		array(
 			'label'     => __( 'RSS Feed links', 'psopt' ),
-			'id'        => 'rss_links',
 			'label_for' => 'rss_links',
 			'title'     => __( 'Disable RSS Feed links', 'psopt' ),
 		),
 	);
 
 	foreach ( $fields as $args ) {
-		add_settings_field( $args['id'], $args['label'], 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args );
+		add_settings_field( $args['label_for'], $args['label'], 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args );
 	}
 }
 
@@ -148,7 +138,7 @@ function psopt_options_main_html() {
 }
 
 function psopt_options_field_checkbox_html( array $args ) {
-	$id    = $args['id'];
+	$id    = $args['label_for'];
 	$title = $args['title'];
 	$slug  = 'psopt_' . $id;
 
