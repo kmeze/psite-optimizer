@@ -37,7 +37,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Options page
+ * Plugin settings
  */
 function psopt_admin_menu() {
 	// Create plugin options page in Settings Admin Menu
@@ -47,149 +47,72 @@ function psopt_admin_menu() {
 add_action( 'admin_menu', 'psopt_admin_menu' );
 
 function psopt_admin_init() {
-	// Register settings
+	// Register plugin settings
 	register_setting( 'psopt_options', 'psopt_options' );
 
 	// Register main section
 	add_settings_section( 'psopt_options_main', __( 'Posts and Page Cleanup', 'psopt' ), 'psopt_options_main_html', 'psopt_options_page' );
 
-	// Settings fields
-	add_settings_field( 'psopt_dns_prefetch_links', __( 'DNS prefetch', 'psopt' ), 'psopt_options_field_dns_prefetch_links_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_generator_meta', __( 'Generator meta', 'psopt' ), 'psopt_options_field_generator_meta_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_wlw_link', __( 'Windows Live Writer', 'psopt' ), 'psopt_options_field_wlw_link_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_wblog_client_link', __( 'Weblog client', 'psopt' ), 'psopt_options_field_wblog_client_link_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_post_shortlink', __( 'Post shortlink', 'psopt' ), 'psopt_options_field_post_shortlinks_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_post_relational_links', __( 'Post relational links', 'psopt' ), 'psopt_options_field_post_relational_links_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_emoji_spp', __( 'Emoji', 'psopt' ), 'psopt_options_field_emoji_spp_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_rest_api_links', __( 'REST API discovery', 'psopt' ), 'psopt_options_field_rest_api_links_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_oembed_spp', __( 'oEmbed discovery', 'psopt' ), 'psopt_options_field_oembed_spp_html', 'psopt_options_page', 'psopt_options_main' );
-	add_settings_field( 'psopt_rss_links', __( 'RSS Feed links', 'psopt' ), 'psopt_options_field_rss_links_html', 'psopt_options_page', 'psopt_options_main' );
+	// Add main section fields
+	$fields = array(
+		array(
+			'label'     => __( 'DNS prefetch', 'psopt' ),
+			'label_for' => 'dns_prefetch_links',
+			'title'     => __( 'Disable DNS prefetch links', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'Generator meta', 'psopt' ),
+			'label_for' => 'generator_meta',
+			'title'     => __( 'Disable generator meta element', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'Windows Live Writer', 'psopt' ),
+			'label_for' => 'wlw_link',
+			'title'     => __( 'Disable Windows Live Writer manifest link', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'Weblog client', 'psopt' ),
+			'label_for' => 'wblog_client_link',
+			'title'     => __( 'Disable Weblog client link', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'Post shortlink', 'psopt' ),
+			'label_for' => 'post_shortlink',
+			'title'     => __( 'Disable post shortlink', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'Post relational links', 'psopt' ),
+			'label_for' => 'post_relational_links',
+			'title'     => __( 'Disable post relational links', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'Emoji', 'psopt' ),
+			'label_for' => 'emoji_spp',
+			'title'     => __( 'Disable Emoji', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'REST API discovery', 'psopt' ),
+			'label_for' => 'rest_api_links',
+			'title'     => __( 'Disable REST API discovery links', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'oEmbed discovery', 'psopt' ),
+			'label_for' => 'oembed_spp',
+			'title'     => __( 'Disable oEmbed discovery', 'psopt' ),
+		),
+		array(
+			'label'     => __( 'RSS Feed links', 'psopt' ),
+			'label_for' => 'rss_links',
+			'title'     => __( 'Disable RSS Feed links', 'psopt' ),
+		),
+	);
+
+	foreach ( $fields as $args ) {
+		add_settings_field( $args['label_for'], $args['label'], 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args );
+	}
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
-
-/**
- * Options page callbacks
- */
-function psopt_options_field_dns_prefetch_links_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_dns_prefetch_links">
-        <input id="psopt_dns_prefetch_links"
-               name="psopt_options[dns_prefetch_links]"
-               type="checkbox" <?php echo isset( $options['dns_prefetch_links'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable DNS prefetch links', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_generator_meta_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_generator_meta">
-        <input id="psopt_generator_meta"
-               name="psopt_options[generator_meta]"
-               type="checkbox" <?php echo isset( $options['generator_meta'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable generator meta element', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_wlw_link_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_wlw_link">
-        <input id="psopt_wlw_link"
-               name="psopt_options[wlw_link]"
-               type="checkbox" <?php echo isset( $options['wlw_link'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable Windows Live Writer manifest link', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_wblog_client_link_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_wblog_client_link">
-        <input id="psopt_wblog_client_link"
-               name="psopt_options[wblog_client_link]"
-               type="checkbox" <?php echo isset( $options['wblog_client_link'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable Weblog client link', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_post_shortlinks_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_post_shortlink">
-        <input id="psopt_post_shortlink"
-               name="psopt_options[post_shortlink]"
-               type="checkbox" <?php echo isset( $options['post_shortlink'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable post shortlink', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_post_relational_links_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_post_relational_links">
-        <input id="psopt_post_relational_links"
-               name="psopt_options[post_relational_links]"
-               type="checkbox" <?php echo isset( $options['post_relational_links'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable post relational links', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_emoji_spp_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_emoji_spp">
-        <input id="psopt_emoji_spp"
-               name="psopt_options[emoji_spp]"
-               type="checkbox" <?php echo isset( $options['emoji_spp'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable Emoji', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_rest_api_links_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="rest_api_links">
-        <input id="rest_api_links"
-               name="psopt_options[rest_api_links]"
-               type="checkbox" <?php echo isset( $options['rest_api_links'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable REST API discovery links', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_oembed_spp_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_oembed_spp">
-        <input id="psopt_oembed_spp"
-               name="psopt_options[oembed_spp]"
-               type="checkbox" <?php echo isset( $options['oembed_spp'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable oEmbed discovery', 'psopt' ); ?>
-    </label>
-	<?php
-}
-
-function psopt_options_field_rss_links_html() {
-	$options = get_option( 'psopt_options' );
-	?>
-    <label for="psopt_rss_links">
-        <input id="psopt_rss_links"
-               name="psopt_options[rss_links]"
-               type="checkbox" <?php echo isset( $options['rss_links'] ) ? ' checked="checked" ' : ''; ?>>
-		<?php esc_html_e( 'Disable RSS Feed links', 'psopt' ); ?>
-    </label>
-	<?php
-}
 
 function psopt_options_page_html() {
 	?>
@@ -211,10 +134,25 @@ function psopt_options_main_html() {
 	esc_html_e( 'Check options below to remove elements from all posts and pages HEAD.', 'psopt' );
 }
 
+function psopt_options_field_checkbox_html( array $args ) {
+	$id    = $args['label_for'];
+	$title = $args['title'];
+	$slug  = 'psopt_' . $id;
+
+	$options = get_option( 'psopt_options' );
+	?>
+    <label for="<?php echo $slug; ?>">
+        <input id="<?php echo $slug; ?>"
+               name="psopt_options[<?php echo $id; ?>]"
+               type="checkbox" <?php echo isset( $options[ $id ] ) ? ' checked="checked" ' : ''; ?>>
+		<?php echo esc_html( $title ); ?>
+    </label>
+	<?php
+}
+
 /**
  * HTML cleanup
  */
-// Get settings
 $options = get_option( 'psopt_options' );
 
 // DNS prefetch link
@@ -277,16 +215,13 @@ if ( isset( $options['rss_links'] ) ) {
 }
 
 /**
- * Activate the plugin.
+ * Activation & deactivation hooks
  */
 function psopt_activate() {
 }
 
 register_activation_hook( __FILE__, 'psopt_activate' );
 
-/**
- * Deactivation hook.
- */
 function psopt_deactivate() {
 }
 
