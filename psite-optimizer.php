@@ -140,7 +140,6 @@ function psopt_options_field_checkbox_html( array $args ) {
 /**
  * HTML cleanup
  */
-// Get settings
 $options = get_option( 'psopt_options' );
 
 // DNS prefetch link
