@@ -54,46 +54,62 @@ function psopt_admin_init() {
 	add_settings_section( 'psopt_options_main', __( 'Posts and Page Cleanup', 'psopt' ), 'psopt_options_main_html', 'psopt_options_page' );
 
 	// Main section fields
-	add_settings_field( 'psopt_dns_prefetch_links', __( 'DNS prefetch', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'dns_prefetch_links',
-		'title' => __( 'Disable DNS prefetch links', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_generator_meta', __( 'Generator meta', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'generator_meta',
-		'title' => __( 'Disable generator meta element', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_wlw_link', __( 'Windows Live Writer', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'wlw_link',
-		'title' => __( 'Disable Windows Live Writer manifest link', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_wblog_client_link', __( 'Weblog client', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'wblog_client_link',
-		'title' => __( 'Disable Weblog client link', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_post_shortlink', __( 'Post shortlink', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'post_shortlink',
-		'title' => __( 'Disable post shortlink', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_post_relational_links', __( 'Post relational links', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'post_relational_links',
-		'title' => __( 'Disable post relational links', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_emoji_spp', __( 'Emoji', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'emoji_spp',
-		'title' => __( 'Disable Emoji', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_rest_api_links', __( 'REST API discovery', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'rest_api_links',
-		'title' => __( 'Disable REST API discovery links', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_oembed_spp', __( 'oEmbed discovery', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'oembed_spp',
-		'title' => __( 'Disable oEmbed discovery', 'psopt' ),
-	) );
-	add_settings_field( 'psopt_rss_links', __( 'RSS Feed links', 'psopt' ), 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args = array(
-		'id'    => 'rss_links',
-		'title' => __( 'Disable RSS Feed links', 'psopt' ),
-	) );
+	$fields = array(
+		array(
+			'label' => __( 'DNS prefetch', 'psopt' ),
+			'id'    => 'dns_prefetch_links',
+			'title' => __( 'Disable DNS prefetch links', 'psopt' ),
+		),
+		array(
+			'label' => __( 'Generator meta', 'psopt' ),
+			'id'    => 'generator_meta',
+			'title' => __( 'Disable generator meta element', 'psopt' ),
+		),
+		array(
+			'label' => __( 'Windows Live Writer', 'psopt' ),
+			'id'    => 'wlw_link',
+			'title' => __( 'Disable Windows Live Writer manifest link', 'psopt' ),
+		),
+		array(
+			'label' => __( 'Weblog client', 'psopt' ),
+			'id'    => 'wblog_client_link',
+			'title' => __( 'Disable Weblog client link', 'psopt' ),
+		),
+		array(
+			'label' => __( 'Post shortlink', 'psopt' ),
+			'id'    => 'post_shortlink',
+			'title' => __( 'Disable post shortlink', 'psopt' ),
+		),
+		array(
+			'label' => __( 'Post relational links', 'psopt' ),
+			'id'    => 'post_relational_links',
+			'title' => __( 'Disable post relational links', 'psopt' ),
+		),
+		array(
+			'label' => __( 'Emoji', 'psopt' ),
+			'id'    => 'emoji_spp',
+			'title' => __( 'Disable Emoji', 'psopt' ),
+		),
+		array(
+			'label' => __( 'REST API discovery', 'psopt' ),
+			'id'    => 'rest_api_links',
+			'title' => __( 'Disable REST API discovery links', 'psopt' ),
+		),
+		array(
+			'label' => __( 'oEmbed discovery', 'psopt' ),
+			'id'    => 'oembed_spp',
+			'title' => __( 'Disable oEmbed discovery', 'psopt' ),
+		),
+		array(
+			'label' => __( 'RSS Feed links', 'psopt' ),
+			'id'    => 'rss_links',
+			'title' => __( 'Disable RSS Feed links', 'psopt' ),
+		),
+	);
+
+	foreach ( $fields as $args ) {
+		add_settings_field( $args['id'], $args['label'], 'psopt_options_field_checkbox_html', 'psopt_options_page', 'psopt_options_main', $args );
+	}
 }
 
 add_action( 'admin_init', 'psopt_admin_init' );
