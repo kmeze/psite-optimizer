@@ -12,6 +12,12 @@ lower versions of WordPress, but it is not tested.
 Plugin is in development phase so there is no installation package yet. Tu install plugin copy or clone this repository
 to wp-content/plugins folder of your WordPress installation.
 
+## Configuration
+
+After installation go to WordPress Admin > Plugins and activate the plugin. On activation, plugin adds custom
+"Optimization" options page in Admin Menu under Settings submenu. Check/uncheck options in Admin > Settings >
+Optimization page to enable/disable optimizations. By default, all optimizations are turned off.
+
 ## Contributing
 
 Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
