@@ -9,7 +9,7 @@ lower versions of WordPress, but it is not tested.
 
 ## Installation
 
-Plugin is in development phase so there is no installation package yet. Tu install plugin copy or clone this repository
+Plugin is in development phase so there is no installation package yet. To install plugin copy or clone this repository
 to wp-content/plugins folder of your WordPress installation.
 
 ## Configuration
