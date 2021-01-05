@@ -11,7 +11,7 @@ to create new issues if any of existing doesn't suit your needs.
 
 ### Submitting changes
 
-1. Fork this repository and make desired changes
+1. Fork this repository and make desired changes.
 2. Commit changes to your fork. Please always write a clear log message for your commits.
 2. Open a new GitHub Pull Request.
 3. Ensure the PR description clearly describes the problem and solution. Include the relevant issue number if
