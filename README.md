@@ -2,6 +2,11 @@
 
 Turns off unnecessary WordPress features and speeds up page loading.
 
+## Requirements
+
+Psite Optimizer requires running WordPress 5.6 or higher running on PHP 7.2 or later. Plugin is probably compatible with
+lower versions of WordPress, but it is not tested.
+
 ## Contributing
 
 Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
