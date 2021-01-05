@@ -2,10 +2,27 @@
 
 Turns off unnecessary WordPress features and speeds up page loading.
 
+## Introduction
+
+Psite Optimizer enable website administrators to optimize web pages. During page generation WordPress adds some meta and
+link elements and load css styles and JavaScripts that are not required for by websites, or not even welcome at all.
+With Psite Optimizer you can remove any or all of following elements:
+
+* DNS prefetch links
+* Generator meta element
+* Windows Live Writer manifest link
+* Weblog client link
+* WordPress Page/Post shortlinks
+* Post relational links
+* Emoji support
+* REST API discovery link
+* oEmbed's discovery support
+* RSS Feed links
+
 ## Requirements
 
-Psite Optimizer requires WordPress 5.6 or higher running on PHP 7.2 or later. Plugin is probably compatible with
-lower versions of WordPress, but it is not tested.
+Psite Optimizer requires WordPress 5.6 or higher running on PHP 7.2 or later. Plugin is probably compatible with lower
+versions of WordPress, but it is not tested.
 
 ## Installation
 
