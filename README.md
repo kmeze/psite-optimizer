@@ -1,4 +1,4 @@
-# Pressite Optimizer WordPress plugin
+# Psite Optimizer WordPress plugin
 
 Turns off unnecessary WordPress features and speeds up page loading.
 
@@ -20,11 +20,11 @@ to create new issues if any of existing doesn't suit your needs.
 
 ## License
 
-Pressite Optimizer plugin is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+Psite Optimizer plugin is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
 License as published by the Free Software Foundation, version 3 of the License.
 
-Pressite Optimizer plugin is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+Psite Optimizer plugin is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
 warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with Pressite Optimizer plugin. If not,
+You should have received a copy of the GNU General Public License along with Psite Optimizer plugin. If not,
 see http://www.gnu.org/licenses/gpl-3.0.html.
