@@ -27,6 +27,9 @@ With Psite Optimizer you can remove any or all of following elements:
 * oEmbed's discovery support
 * RSS Feed links
 
+== Screenshots ==
+1. Check/uncheck options in Admin > Settings > Optimization page to enable/disable optimizations.
+
 == Changelog ==
 
 = 1.0 =
