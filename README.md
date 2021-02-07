@@ -35,6 +35,8 @@ After installation go to WordPress Admin > Plugins and activate the plugin. On a
 "Optimization" options page in Admin Menu under Settings submenu. Check/uncheck options in Admin > Settings >
 Optimization page to enable/disable optimizations. By default, all optimizations are turned off.
 
+![Admin screenshot](/assets/screenshot-1.png)
+
 ## Contributing
 
 Please note we have a [code of conduct](CODE_OF_CONDUCT.md), please follow it in all your interactions with the project.
